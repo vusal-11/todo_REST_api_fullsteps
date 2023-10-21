@@ -33,12 +33,16 @@ namespace ToDo_WEB_API.Controllers
         [HttpPost]
         public async Task<ActionResult<ToDoItemDto>> Post([FromBody] CreatedToDoItemRequest request)
         {
-
             var createdItem = await _todoService.CreateTodoItem(request);
-
-
             return createdItem;
+        }
 
+        [HttpPatch("{id}/status")]
+        public async Task<ActionResult<ToDoItemDto>> Patch(int id,[FromBody] bool isCompleted)
+        {
+
+            var todoItem = await _todoService.ChangeTodoItemStatusAsync(id,isCompleted);
+            return todoItem !=null ? todoItem : NotFound();
 
         }
 
