@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDo_WEB_API.DTOs;
 using ToDo_WEB_API.DTOs.Pagination;
@@ -39,6 +40,14 @@ namespace ToDo_WEB_API.Controllers
             return item != null ? item : NotFound();
         }
 
+        /// <summary>
+        /// Create ToDo Item
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="201">Success</response>
+        /// <response code="409">Task already created</response>
+        /// <response code="403">Forbiden</response>
+        [Authorize (Roles ="admin")]
         [HttpPost]
         public async Task<ActionResult<ToDoItemDto>> Post([FromBody] CreatedToDoItemRequest request)
         {
@@ -46,6 +55,15 @@ namespace ToDo_WEB_API.Controllers
             return createdItem;
         }
 
+
+        /// <summary>
+        /// Change ToDo Item status
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isCompleted"></param>
+        /// <returns>ToDo task with changed status</returns>
+
+        [Authorize (Roles ="moderator")]
         [HttpPatch("{id}/status")]
         public async Task<ActionResult<ToDoItemDto>> Patch(int id,[FromBody] bool isCompleted)
         {

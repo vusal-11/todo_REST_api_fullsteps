@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ToDo WEB API</name>
+    </assembly>
+    <members>
+        <member name="M:ToDo_WEB_API.Controllers.TodoController.Post(ToDo_WEB_API.DTOs.CreatedToDoItemRequest)">
+            <summary>
+            Create ToDo Item
+            </summary>
+            <param name="request"></param>
+            <response code="201">Success</response>
+            <response code="409">Task already created</response>
+            <response code="403">Forbiden</response>
+        </member>
+        <member name="M:ToDo_WEB_API.Controllers.TodoController.Patch(System.Int32,System.Boolean)">
+            <summary>
+            Change ToDo Item status
+            </summary>
+            <param name="id"></param>
+            <param name="isCompleted"></param>
+            <returns>ToDo task with changed status</returns>
+        </member>
+        <member name="P:ToDo_WEB_API.DTOs.Pagination.PaginationRequest.Page">
+            <summary>
+            Page
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:ToDo_WEB_API.DTOs.Pagination.PaginationRequest.PageSize">
+            <summary>
+            Page size - How many items in one page
+            </summary>
+            <example>10</example>
+        </member>
+    </members>
+</doc>
