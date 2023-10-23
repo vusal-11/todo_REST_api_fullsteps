@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using ToDo_WEB_API.Auth;
 using ToDo_WEB_API.Data;
 using ToDo_WEB_API.Services;
 
@@ -30,6 +31,17 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanTest", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        //policy.RequireClaim("CanTest");
+        policy.Requirements.Add(new CanTestRequirement());
+    });
+});
+
 builder.Services.AddSwaggerGen(setup =>
 {
     setup.SwaggerDoc("v1",
@@ -49,7 +61,7 @@ builder.Services.AddSwaggerGen(setup =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "example: Bearer asdasdsdasdasd"
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\""
     });
 
     setup.AddSecurityRequirement(new OpenApiSecurityRequirement

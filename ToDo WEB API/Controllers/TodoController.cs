@@ -8,6 +8,12 @@ using ToDo_WEB_API.Services;
 
 namespace ToDo_WEB_API.Controllers
 {
+
+
+    /// <summary>
+    /// Todo Api main controller
+    /// </summary>
+
     [Route("api/[controller]")]
     [ApiController]
     public class TodoController : ControllerBase
@@ -19,6 +25,7 @@ namespace ToDo_WEB_API.Controllers
             _todoService = todoService;
         }
 
+        [Authorize(Policy = "CanView")]
         [HttpGet]
         public async Task<ActionResult<PaginationListDto<ToDoItemDto>>> Get(
             [FromQuery] ToDoQueryFilters filters,
@@ -47,7 +54,10 @@ namespace ToDo_WEB_API.Controllers
         /// <response code="201">Success</response>
         /// <response code="409">Task already created</response>
         /// <response code="403">Forbiden</response>
-        [Authorize (Roles ="admin")]
+
+
+
+        //[Authorize (Roles ="admin")]
         [HttpPost]
         public async Task<ActionResult<ToDoItemDto>> Post([FromBody] CreatedToDoItemRequest request)
         {
@@ -63,7 +73,9 @@ namespace ToDo_WEB_API.Controllers
         /// <param name="isCompleted"></param>
         /// <returns>ToDo task with changed status</returns>
 
-        [Authorize (Roles ="moderator")]
+
+
+        //[Authorize (Roles ="admin")]
         [HttpPatch("{id}/status")]
         public async Task<ActionResult<ToDoItemDto>> Patch(int id,[FromBody] bool isCompleted)
         {

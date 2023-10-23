@@ -4,6 +4,11 @@
         <name>ToDo WEB API</name>
     </assembly>
     <members>
+        <member name="T:ToDo_WEB_API.Controllers.TodoController">
+            <summary>
+            Todo Api main controller
+            </summary>
+        </member>
         <member name="M:ToDo_WEB_API.Controllers.TodoController.Post(ToDo_WEB_API.DTOs.CreatedToDoItemRequest)">
             <summary>
             Create ToDo Item
