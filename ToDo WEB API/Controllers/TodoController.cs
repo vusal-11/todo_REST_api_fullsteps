@@ -14,6 +14,7 @@ namespace ToDo_WEB_API.Controllers
     /// Todo Api main controller
     /// </summary>
 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TodoController : ControllerBase
@@ -25,7 +26,7 @@ namespace ToDo_WEB_API.Controllers
             _todoService = todoService;
         }
 
-        [Authorize(Policy = "CanView")]
+        //[Authorize(Policy = "CanView")]
         [HttpGet]
         public async Task<ActionResult<PaginationListDto<ToDoItemDto>>> Get(
             [FromQuery] ToDoQueryFilters filters,
